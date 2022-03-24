@@ -1,0 +1,84 @@
+How to create a databse on postgresql:
+
+CREATE DATABASE (name_database)
+
+How to restore or load data to the database:
+
+-by using the psql shell:
+   -cd C:\Program Files\PostgreSQL\14\bin
+   -pg_restore -U postgres -d (name_database where you want to restore data) (path of data to restore)
+
+-by using pgadmin:
+   -select the database
+   -go on tool>restore and select the path of data to restore
+
+DDL: Data definition language
+
+CREATE TABLE table_name (
+    column1 datatype column_constraint,
+    column2 datatype column_constraint,
+    column3 datatype column_constraint,
+   ....
+);
+for example:
+
+create Table Berries(
+   berry_id int primary key,
+   berry_name varchar(255) not null
+   ...
+)
+
+ALTER TABLE table_name
+ADD COLUMN column_name data_type column_constraint;
+
+ALTER TABLE table_name
+DROP COLUMN column_name;
+
+ALTER TABLE table_name
+ALTER COLUMN column_name SET DATA TYPE data_type;
+
+ALTER TABLE table_name
+RENAME COLUMN current_column_name TO new_column_name;
+
+Truncate removes all data from a table
+TRUNCATE TABLE table_name;
+
+Drop deletes the tables from the database
+DROP TABLE table_name;
+
+SELECT column_name [, column_name ]
+FROM table1 [, table2 ]
+WHERE column_name OPERATOR
+   (SELECT column_name [, column_name ]
+   FROM table1 [, table2 ]
+   WHERE condition);
+
+How does an Implicit version of CROSS JOIN (also known as Cartesian Join) statement syntax look?
+
+SELECT column_name(s)
+FROM table1, table2;
+
+How does an Implicit version of INNER JOIN statement syntax look?
+
+SELECT column_name(s)
+FROM table1, table2
+WHERE table1.column_name = table2.column_name;
+
+PostgreSQL Update syntax to update data records in the table:
+
+Update table_name
+set column1=value1,
+column2=value2,
+...
+(where condition)
+
+Postgresql Delete syntax to delete data records in the table:
+delete from table_name
+(where condition)
+
+Postgresql insert syntax to insert data records in the table:
+
+Insert into table_name (column1, column2,...)
+values 
+(value1,value2,...),#for the first record to add
+(value1,value2,...),#for the second record to add and so on

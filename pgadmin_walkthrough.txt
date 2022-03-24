@@ -1,0 +1,228 @@
+                                                	A.Schema:
+a ollection of database objects
+objects are like functions views table  etc
+
+                                                	B.Functions:
+
+block of reusable sql code
+returns scalar value of a list of records
+return composite objects
+
+to explore a function:
+right click on a function and go to properties
+
+                                                	C.Cast and Operators:
+Cast:
+convert one data type into another data type
+usually done with a function
+you can create custom casts to override the default
+
+Operators:
+a symbolic functions
+
+                                                	D.Sequences:
+
+used to manage auto increment column like id column
+you can create your own sequence
+useful to keep records in sync
+
+                                                	E.Extension:
+
+used to wrap other objects into a single unit
+make easier to maintain them
+types of objects you can wrap are: casts, indexesnfunctions, etc
+
+                                                	F.Potsgresql data types:
+
+boolean
+character (char(n),varchar(n),text)
+number(integer,float)
+temporal(date,timestamp,interval,zone)
+array
+special types(box,line,point,lseg,polygon,inet)
+
+Unique constraints:
+ensure values in a column or group of columns are unique in a table
+
+                                                	G.Stored procedures:
+
+A stored procedure is a set of sql statements with an assigned name which are stored in a RDBMS
+as a group, so it can be reused and shared by multiple programs
+
+Postgresql allows you to extend the database functionnality with user-defined functions
+
+Used to created various type of functions like triggers or custom aggregate functions
+reduced network traffic
+increase application performance
+but make it difficult to manage versions hard to debug
+and not be portable to other RDBMS like MySQL, sql server
+
+                                            		H.Views:
+
+A view is a basically a stored query(SELECT statement) stored as a database object
+It's a logical table representing data from underlying tables
+It's defined based on one or more tables known as base Tables
+A view itself does not store data physically except for materialized views
+Materialized views store physically data and refreshes them periodically
+Simplifies complex queries
+Can help to hide sensitive table data
+You can grant permissions to users
+Provides consistent layer
+
+Syntax:
+
+CREATE VIEW view_name as query
+example: create view view_test as select * from actor
+
+Updatable views:
+Conditions: 
+the defining query of the view must have exactly one entry in the FROM clause
+The defining query must not contain one of the following clauses at top level:GROUP BY,HAVING,
+LIMIT,OFFSET,DISTINCT,WITH,UNION,INTERSECT,and EXCEPT
+the selection list must not contain any window function or set-returning function 
+or any aggregate function like SUM,COUNT,AVG,MIN,etc
+An updatable view may contain both updatable and non-updatable columns
+
+How to create a materialized view:
+syntax:
+
+CREATE MATERIALIZED VIEW view_name as query
+with (no) data--if you want to load data at the creation of view
+
+
+REFRESH MATERIALIZED VIEW view_name--to load data into the materialized view, but postgresql will lock the table, to avoid this, we add the "concurrently option":
+
+REFRESH MATERIALIZED VIEW CONCURRENTLY view_name
+
+
+						I.POSTGRESQL Triggers:
+
+It's a function invoked automatically whenever an event associated with a table occurs
+An event could be anything like an insert, an updaten a delete, a truncate
+A trigger is a special user-defined function that binds a table
+You can specify wether the trigger is invoked before or after an event
+2 mains types of trigger: the row trigger and the statement trigger
+
+Benefits using triggers:
+Maintain data integrity rules.
+Check activities of applications accessing the database
+
+How to create a trigger:
+1.create a trigger function using create function statement
+2.bind this trigger function to a table using create trigger statement
+
+syntax of create function statement:
+A trigger function is similar to an ordinary function, except that it does not take any arguments
+and has a return value type trigger
+
+CREAE FUNCTION trigger_function() RETURN trigger AS query
+
+syntax of create trigger statement:
+
+CREATE TRIGGER rigger_name{BEFORE|AFTER|INSTEAD OF}{event[OR...]}
+ON table_name
+[FOR [EACH] {ROW|STATEMENT}]
+EXECUTE PROCEDURE trigger_function
+
+							J.Role Management
+
+Postgresql manages database access permissions by using the concept of role
+A role can be a database user or a group of database users
+
+1.Database roles
+they are global across a database cluster(a database cluster is a group of database)
+they are separate from operating system users
+syntax:
+CREATE ROLE role_name
+
+you can create a role using the pgadmin software by going to Login/Group Roles
+
+2.Role Attributes
+The attributes of a database role define role's privileges including login,superuser,database creation,role creation,password,etc...
+Only roles with the LOGIN attribute can be used as the initial role name for a database connection
+
+syntax to create a role with login privilege:
+CREATE name LOGIN 
+or
+CREATE USER name
+
+SUuperuser Status
+A database superuser bypasses all permission checks, except the right to log in
+it should not be used carelessly
+syntax: CREATE ROLE name SUPERUSER
+
+Database Creation
+A role must be explicitly given permission to create databases(except superusers)
+
+Role creation
+A role must be explicitely given permission to create roles(except superusers)
+syntax: CREATE ROLE name CREATEROLE
+
+A role with createrole privilege can alter and drop other roles and grant or revoke
+membership in them. Exception is the superuser role
+
+Initiating Replication
+A role must be explicitely given permission to initiate replication(except superusers)
+syntax:CREATE ROLE name REPLICATION LOGIN
+
+Password
+ password is only significant if the client authentication method requires it
+syntax: CREATE ROLE name PASSWORD "string"
+
+Tip
+Good practice to create a role that has the CREATEDB and CREATEROLE privileges but not SUPERUSER and then use this role for all routine management of databases and roles
+
+ROLE Membership
+Grouping users together to ease management of privileges
+Privileges can be granted or revoked from a group
+Create a role that represents the group then grant membership in group role to 
+individual user roles
+By convention, a group role doesn't have a login privilege
+syntax to create a group role: CREATE ROLE grourole_name
+you can add a user role to the group role using the grant statement
+
+GROUP AND USER ROLE INHERITANCE
+Use set role statement to temporarily become the group role
+Use a user role that as the INHERIT attribute to automatically have privileges
+of the group roles of which it is a member, including privileges inherited by the group roles
+
+REMOVING ROLES:
+Any objects owned by the role must first be dropped or reassigned to other owners
+Any permissions granted to the role must be revoked
+syntax for removing roles: DROP ROLE role_name
+
+								K.Backing up Databases
+
+Critical tasks for a database administrator
+Postgresql Backup Tools: 
+From the command line:
+Pg_dump(single database backup),
+Pg_dumpall(All database backup)
+
+From Postgresql gui: pgadmin
+
+								L.Restoring a database
+
+Psql(restores plaon sql script generated by pg_dump or pg_dumpall)
+Pg_restore(restore tar file and directory format created by pg_dump tool)
+Pgadmin tool
+If restoring to live database...terminate all connections to the database
+
+
+								M.Postgresql tablespace
+
+A tablespace is a location on disk where Postgresql stores data(indexes, tables and so on)
+Postgresql uses tablespaces to map a logical name to a physical location on disk
+Tablespaces allow you to control the disk layout of Postgresql
+
+Advantages:
+If a partition on which the cluster(collection of databases) was initialized is out of space,
+you can create a new tablespace on a different partition.
+
+you xan use the satistics of database object's usages to optimize the performance of databases
+
+Creating a tablespace
+syntax:
+CREATE TABLESPACE tablespace_name(should not begin with "pg_" cuz it's reserved for the system)
+OWNER user_name
+LOCATION directory_path
