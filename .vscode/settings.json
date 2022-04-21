@@ -10,5 +10,6 @@
       "username": "postgres",
       "password": "Candycove456"
     }
-  ]
+  ],
+  "jupyter.jupyterServerType": "local"
 }
