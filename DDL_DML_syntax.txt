@@ -82,3 +82,27 @@ Insert into table_name (column1, column2,...)
 values 
 (value1,value2,...),#for the first record to add
 (value1,value2,...),#for the second record to add and so on
+
+            ACID TRANSACTIONS
+
+ A transaction is: 
+   -Indivisible unit of work
+   -Consists of one or more sql statements
+   -Either all happens or none 
+
+ACID stands for :
+   -Atomic: All changes must be performed successfully or not at all
+   -Consistent: Data must be in a consistent state before and after the transaction
+   -Isolated: No other process can change the data while the transaction is running
+   -Durable: The changes made by the transaction must persist    
+
+Syntax: Begin
+            Start the acid transaction
+        Commit
+            All statements complete Successfully
+            Save the new database state
+       Rollback(to undo all the transaction if something went wrong)
+            One or more statements failed
+            Undo changes
+
+Sql statements can be called from java, c, r, python

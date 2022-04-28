@@ -47,15 +47,40 @@ ensure values in a column or group of columns are unique in a table
                                                 	G.Stored procedures:
 
 A stored procedure is a set of sql statements with an assigned name which are stored in a RDBMS
-as a group, so it can be reused and shared by multiple programs
+as a group, so it can be reused and shared by multiple programs.So instead of sending multiple
+SQL statements from the client to the server, you encapsulate them in a stored procedure on 
+the server and send one statement from the client to execute them. Also, stored procedures 
+can be useful if you have an SQL query that you write over and over again. You can save it 
+as a stored procedure, and then just call it to execute it. In stored procedures, you can 
+also pass parameters so that a stored procedure can act based on the passed parameter values.
 
 Postgresql allows you to extend the database functionnality with user-defined functions
 
 Used to created various type of functions like triggers or custom aggregate functions
 reduced network traffic
+increase in security
 increase application performance
 but make it difficult to manage versions hard to debug
 and not be portable to other RDBMS like MySQL, sql server
+
+Exemple: 
+	create procedure update_sal(IN empNum CHAR(6), IN rating SMALLINT)
+			language sql
+			begin
+				if rating =1 Then
+					update employees set salary=salary*1.10
+					where emp_id=empNum;
+				else
+					update employees set salary=salary*1.05
+					where emp_id=empNum;
+				end if;
+			end
+We can call stored procedures from external applications or from dynamic sql statements
+Exemple: call update_sal('E001',1)
+
+		
+
+
 
                                             		H.Views:
 
@@ -71,8 +96,13 @@ Provides consistent layer
 
 Syntax:
 
-CREATE VIEW view_name as query
+CREATE VIEW view_name (column_alias_1,column_alias_2,...)as query
 example: create view view_test as select * from actor
+		 create view empinfo (emp_id,firstname,lastname,address,job_id,manager_id,dep_id) 
+		 as select emp_id,f_name_l_name,address,job_id,manager_id,dep_id 
+		 from employees;
+
+		 select * from empinfo
 
 Updatable views:
 Conditions: 
