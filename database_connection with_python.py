@@ -4,9 +4,9 @@
 # pip uninstall sqlalchemy==1.4 -y && pip install sqlalchemy==1.3.24
 # !pip install ipython-sql
 
+import ibm_db
 import ibm_db_dbi
 import pandas
-import ibm_db
 
 #Replace the placeholder values with your actual Db2 hostname, username, and password:
 # e.g.: "54a2f15b-5c0f-46df-8954-7e38e612c2bd.c1ogj3sd0tgtu0lqde00.databases.appdomain.cloud"
