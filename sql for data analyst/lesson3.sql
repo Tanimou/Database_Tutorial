@@ -37,7 +37,7 @@ FROM orders ;
 SELECT  occurred_at
 FROM orders
 ORDER BY occurred_at
-LIMIT 1 ; ;
+LIMIT 1 ; 
 
 SELECT  AVG(standard_amt_usd) average_standard_amt_usd
        ,AVG(gloss_amt_usd) average_gloss_amt_usd
@@ -348,7 +348,9 @@ GROUP BY  channel
 ORDER BY num_times desc
 LIMIT 10 ; 
 
-/*DATE FUNCTIONS GROUPing BY a date column is not usually very useful IN SQL, AS these columns tend to have transaction data down to a second.Keeping date information at such a granular data is both a blessing AND a curse, AS it gives really precise information (a blessing), but it makes grouping information together directly difficult (a curse).Lucky for us, there are a number of built IN SQL functions that are aimed at helping us improve our experience IN working WITH dates.Here we saw that dates are stored IN year, month, day, hour, minute, second, which helps us IN truncating. The first function you are introduced to IN working WITH dates is DATE_TRUNC.DATE_TRUNC allows you to truncate your date to a particular part of your date - time column.Common trunctions are day, month, AND year. DATE_PART can be useful for pulling a specific portion of a date, but notice pulling month or day of the week (dow) means that you are no longer keeping the years IN order.Rather you are grouping for certain components regardless of which year they belonged in. You can reference the columns IN your
+/*DATE FUNCTIONS GROUPing BY a date column is not usually very useful IN SQL, AS these columns tend to have transaction data down to a second.Keeping date information at such a granular data is both a blessing AND a curse, AS it gives really precise information (a blessing), but it makes grouping information together directly difficult (a curse).Lucky for us, 
+there are a number of built IN SQL functions that are aimed at helping us improve our experience IN working WITH dates.Here we saw that dates are stored IN year, month, day, hour, minute, second, which helps us IN truncating. The first function you are introduced to IN working WITH dates is DATE_TRUNC.
+DATE_TRUNC allows you to truncate your date to a particular part of your date - time column.Common trunctions are day, month, AND year. DATE_PART can be useful for pulling a specific portion of a date, but notice pulling month or day of the week (dow) means that you are no longer keeping the years IN order.Rather you are grouping for certain components regardless of which year they belonged in. You can reference the columns IN your
 
 SELECT  statement IN
 GROUP BY  AND
@@ -405,7 +407,8 @@ ORDER BY 1 ;
 
 /*Example: What 's the average weekday order volume? To determine the average volume of orders that occurred by weekday,use EXTRACT AND the dow (day of the week) subfield to isolate the day - of - week (
 FROM 0 -6,
-WHERE 0 is Sunday ) IN which an order occurred. Next, round the order timestamps by day WITH DATE_TRUNC.Taking a COUNT of orders grouped by dow AND day will return the number of orders placed each day along WITH the corresponding day - of - week. To find the average weekday order volume, use the previous query AS a subquery (aliased AS a).Take the average of orders (using the AVG() function), AND THEN use a
+WHERE 0 is Sunday ) IN which an order occurred. Next, round the order timestamps by day WITH DATE_TRUNC.Taking a COUNT of orders grouped by dow AND day will return the number of orders placed each day along WITH the corresponding day - of - week. 
+To find the average weekday order volume, use the previous query AS a subquery (aliased AS a).Take the average of orders (using the AVG() function), AND THEN use a
 WHERE clause to filter out Saturdays
 AND Sundays.*/
 SELECT  AVG(orders) AS avg_orders_weekday

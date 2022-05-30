@@ -83,6 +83,15 @@ values
 (value1,value2,...),#for the first record to add
 (value1,value2,...),#for the second record to add and so on
 
+DCL Statements: Data Control language statements:
+
+Grant statement: Grant update on order_backlog to jones with grant option
+                 Grant select on table q.staff to public
+               
+Revoke statement: used to cancel previously granted or denied permissions 
+                  Revoke all on employees from anderson
+
+         
             ACID TRANSACTIONS
 
  A transaction is: 
@@ -92,9 +101,18 @@ values
 
 ACID stands for :
    -Atomic: All changes must be performed successfully or not at all
+            This provides reliability because if there is a failure in 
+            the middle of the transaction, none of the changes will be commited
+
    -Consistent: Data must be in a consistent state before and after the transaction
+                Ensures the transaction maintains data integrity constraints, leaving
+                data consistent
+
    -Isolated: No other process can change the data while the transaction is running
-   -Durable: The changes made by the transaction must persist    
+              
+   -Durable: The changes made by the transaction must persist   
+             Ensures that the information saved in the database are immutable until
+             another update or deletion transaction affects them 
 
 Syntax: Begin
             Start the acid transaction
@@ -106,3 +124,21 @@ Syntax: Begin
             Undo changes
 
 Sql statements can be called from java, c, r, python
+
+
+                                             Temporary table:
+
+It's a table that exists temporarily on the database server
+
+It stores a subset of data from a normal table for a certain period of time
+
+Particularly useful when you have a large number of records in a table and you repeatedly need 
+to interact with a small subset of thoses records
+
+In such cases, instead of filtering data again and again to fetch the subset, you can filter once and store it in a temporary table
+
+it gets stored inside of "tempdb" which is a system database
+
+Must start with '#'
+
+Syntax: select * into #tempdb from DimAccount

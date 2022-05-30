@@ -131,7 +131,7 @@ JOIN region r
 ON s.region_id = r.id
 JOIN accounts a
 ON a.sales_rep_id = s.id
-ORDER BY a.name ; ,
+ORDER BY a.name ; 
 
 SELECT  r.name AS region
        ,a.name AS account
