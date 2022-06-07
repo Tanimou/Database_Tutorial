@@ -432,7 +432,8 @@ SELECT  name
 FROM modeanalytics.customer_accounts ;
 
  /*Example: How long does it take users to complete their profile each month,
-ON average ? To find the average time to complete a profile each month, start by finding the time it took each user to complete a profile AS well AS the month IN which the profile creation process was started.First, round the started_at timestamp by month, USING the DATE_TRUNC function.Next, find the time elapsed
+ON average ? To find the average time to complete a profile each month, start by finding the time it took each user to complete a profile AS well AS the month IN which the profile creation process was started.
+First, round the started_at timestamp by month, USING the DATE_TRUNC function.Next, find the time elapsed
 FROM started_at to ended_at for each profile USING the AGE function. Find the average for each month by applying the AVG function to the elapsed time value (your AGE statement) AND grouping by month. */
 SELECT  DATE_TRUNC('month',started_at) AS MONTH
        ,AVG(AGE(ended_at,started_at))  AS avg_time_to_complete
@@ -474,7 +475,7 @@ ORDER BY 1 desc
 LIMIT 1 ;
 
 --5:In which month of which year did Walmart spend the most
-ON gloss paper IN terms of dollars ?
+--ON gloss paper IN terms of dollars ?
 SELECT  a.name AS account
        ,SUM(o.gloss_amt_usd) total_gloss_usd
        ,date_trunc('month',o.occurred_at) year_and_month
@@ -492,7 +493,8 @@ LIMIT 1 ;
 SELECT  clause. CASE must include the following components: WHEN
        ,THEN
        ,and END. ELSE is an optional component to catch cases that didn ’ t meet any of the other previous CASE conditions. You can make any conditional statement USING any conditional operator (like
-WHERE ) BETWEEN WHEN AND THEN.This includes stringing together multiple conditional statements USING AND and OR. You can include multiple WHEN statements, AS well AS an ELSE statement again, to deal WITH any unaddressed conditions. case statement is a sql's way of handling "if" "then" logic*/
+WHERE ) BETWEEN WHEN AND THEN.This includes stringing together multiple conditional statements USING AND and OR. You can include multiple WHEN statements, AS well AS an ELSE statement again, to deal WITH any unaddressed conditions. 
+case statement is a sql's way of handling "if" "then" logic*/
 SELECT  id
        ,occurred_at
        ,channel
@@ -525,7 +527,7 @@ FROM orders;
 --1:Write a query to display for each order, the account ID,
 --total amount of the order, AND the level of the order - ‘ Large ’
 --or ’ Small ’ - depending
-ON if the order is $3000 or more, or smaller than $3000.
+--ON if the order is $3000 or more, or smaller than $3000.
 SELECT  account_id
        ,total_amt_usd
        ,CASE WHEN o.total_amt_usd >= 3000 THEN 'Large'  ELSE 'Small' END AS order_level
@@ -533,7 +535,7 @@ FROM orders ;
 
 --2:Write a query to display the number of orders IN each of three categories,
 --based
-ON the total number of items IN each order.The three categories are: 'At Least 2000',
+--ON the total number of items IN each order.The three categories are: 'At Least 2000',
 --'Between 1000 AND 2000'
 --and 'Less than 1000'.
 
@@ -546,7 +548,8 @@ GROUP BY  1;
  /*3:We would like to understand 3 different levels of customers based
 ON the amount associated WITH their purchases.The top level includes anyone WITH a Lifetime Value
 (total sales of all orders
-) greater than 200, 000 usd.The second level is BETWEEN 200, 000 AND 100, 000 usd.The lowest level is anyone under 100, 000 usd.Provide a TABLE that includes the level associated WITH each account.You should provide the account name, the total sales of all orders for the customer, AND the level.Order WITH the top spending customers listed first.*/
+) greater than 200, 000 usd.The second level is BETWEEN 200, 000 AND 100, 000 usd.The lowest level is anyone under 100, 000 usd.
+Provide a TABLE that includes the level associated WITH each account.You should provide the account name, the total sales of all orders for the customer, AND the level.Order WITH the top spending customers listed first.*/
 
 SELECT  a.name account
        ,SUM(o.total_amt_usd) total_sales
@@ -589,7 +592,9 @@ ON a.id = o.account_id
 GROUP BY  1
 ORDER BY 2 desc; 
 
-/*6:The previous didn 't account for the middle,nor the dollar amount associated WITH the sales. Management decides they want to see these characteristics represented AS well. We would like to identify top performing sales reps,which are sales reps associated WITH more than 200 orders or more than 750000 IN total sales. The middle group has any rep WITH more than 150 orders or 500000 IN sales.
+/*6:The previous didn 't account for the middle,nor the dollar amount associated WITH the sales. Management decides they want to see these characteristics represented AS well. 
+We would like to identify top performing sales reps,which are sales reps associated WITH more than 200 orders or more than 750000 IN total sales. 
+The middle group has any rep WITH more than 150 orders or 500000 IN sales.
 
 CREATE a TABLE WITH the sales rep name, the total number of orders, total sales across all orders, AND a column WITH top, middle, or low depending
 ON this criteria. Place the top sales people based

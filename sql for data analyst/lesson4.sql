@@ -237,9 +237,11 @@ FROM
 	FROM orders o )
 ) temp_table; 
 
-/*WRITTING COMMON TABLE EXPRESSION WITH 'WITH' STATEMENT WHEN creating multiple tables USING WITH, 
+/*WRITTING COMMON TABLE EXPRESSION WITH 'WITH' STATEMENT 
+WHEN creating multiple tables USING WITH, 
 you add a comma after TABLE except the last TABLE leading to your final query The new TABLE name is always aliased USING AS, 
-which is followed by your query nested BETWEEN parentheses WITH statement is more efficient, AS tables aren't recreated WITH each subquery portion*/
+which is followed by your query nested BETWEEN parentheses 
+WITH statement is more efficient, AS tables aren't recreated WITH each subquery portion*/
 
 --Example: we can write this query below:
 SELECT  channel
@@ -288,7 +290,8 @@ FROM table1
 JOIN table2
 ON table1.account_id = table2.id; 
 
-/*we are going to rewrite all the query we wrote IN the subquery Mania WITH the 'with' statement*/ /*1:Provide the name of the sales_rep IN each region WITH the largest amount of total_amt_usd sales.*/
+/*we are going to rewrite all the query we wrote IN the subquery Mania WITH the 'with' statement*/
+ /*1:Provide the name of the sales_rep IN each region WITH the largest amount of total_amt_usd sales.*/
 WITH t1 AS
 (
 	SELECT  s.name rep_name
