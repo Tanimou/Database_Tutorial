@@ -49,8 +49,5 @@ the LIMIT statement is useful when you want to see just the first few rows of a 
 
 The LIMIT command is always the very last part of a query. An example of showing just the first 10 rows of the orders table with all of the columns might look like the following:
 
-SELECT *
-FROM orders
-LIMIT 10;
 
 

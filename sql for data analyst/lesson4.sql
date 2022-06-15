@@ -386,7 +386,7 @@ FROM t2;
  /*4:For the customer that spent the most (in total over their lifetime AS a customer) total_amt_usd, how many web_events did they have for each channel ?*/
 WITH t1 AS
 (
-	SELECT  a.id
+	SELECT  a.id id
 	       ,a.name
 	       ,SUM(o.total_amt_usd) tot_spent
 	FROM orders o
