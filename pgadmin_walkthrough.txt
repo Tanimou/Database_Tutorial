@@ -1,5 +1,5 @@
                                                 	A.Schema:
-a ollection of database objects
+a collection of database objects
 objects are like functions views table  etc
 
                                                 	B.Functions:
@@ -7,6 +7,48 @@ objects are like functions views table  etc
 block of reusable sql code
 returns scalar value of a list of records
 return composite objects
+We can't use a function to do crud operations in database tables while stored procedure can
+Stored procedures cannot be called within a SQL statements while function can be
+
+DIFFERENCE BETWEEN FUNCTIONS AND STORED PROCEDURE:
+
+1.The function must return a value but in SP(Stored procedure) it's optional
+2.Functions can only have inputs parameters whereas SP can have input or output params
+3.Functions can be called from a SP but SP can't be from a function
+4.Procedures allow SELECT as well as DML statement in it while function allows on ly select statement
+5.Procedure cannot be used in a SELECT statement whereas function can be embedded in a SELECT statement
+6.SP can't be used in the sql statement anywhere inthe WHERE/HAVING/SELECT section while function can be
+7.An exception can be handled by a try-cach block in a SP while not in a function
+8.We can use transactions in a SP but not in a function
+
+
+
+Synxtac of creation of function in sql server version:
+
+CREATE FUNCTION [database_name].function_name(parameters)
+	returns data_type as
+	begin
+	sql_statement
+	RETURN value
+	end;
+
+EXAMPLE:
+	CREATE FUNCTION GetEmpFullName (@FirstName varchar(20),@LastName varchar(20))
+		returns varchar(41)
+		as
+		begin
+		return(select @FirstName+" "+@LastName)
+		end;
+
+	CREATE FUNCTION GetEmpFullNamee(@AccountTypee varchar(50),@AccountDescriptione varchar(50))
+		returns varchar(101)
+		as
+		begin
+		return(select @AccountTypee+' '+@AccountDescriptione)
+		end;
+	
+	select dbo.GetEmpFullNamee(AccountType,AccountDescription) Full_Name ,[AccountCodeAlternateKey] from [DimAccount]
+order by AccountCodeAlternateKey
 
 to explore a function:
 right click on a function and go to properties
@@ -78,9 +120,26 @@ Exemple:
 We can call stored procedures from external applications or from dynamic sql statements
 Exemple: call update_sal('E001',1)
 
-		
+In sql server version:
+	CREATE PROCEDURE procedure_name as sql_statement
+	GO;
 
+Syntax of stored procedure with parameters in sql server:
+	Create procedure procedure_name (@param1 type, @param2 type)
+	as
+	sql_statement
+	go;
+	
+To execute it from sql server: 
+	EXEC procedure_name;		
+	exec procedure_name param1,param2
 
+Example: CREATE PROCEDURE SelectAllPersonAddress (@City navarchar(30)='New York)#Like in python we can set a default value for parameters
+		 AS
+		 SELECT * from person.address where city=@City
+		 GO;
+
+		 EXEC SelectAllPersonAddress @City='New York'; (or EXEC SelectAllPersonAddress 'New York' or EXEC SelectAllPersonAddress )
 
                                             		H.Views:
 
