@@ -54,7 +54,7 @@ SELECT  o1.id          AS o1_id
        ,o2.occurred_at AS o2_occurred_at
 FROM orders o1
 LEFT JOIN orders o2
---we want to make sure that we're joining on the same account:
+--we want to make sure that e're joining on the same account:
 ON o1.account_id = o2.account_id 
 --since we want the records in o2 to be within 30 days after the records in o1,
 --first, we're going to join where o2.occurred_at is greater than o1.occurred_at,
@@ -211,8 +211,7 @@ unless parentheses dictate otherwise. EXCEPT binds at the same level as UNION.*/
 
 SELECT  film_id
        ,title
-FROM film 
-EXCEPT
+FROM film EXCEPT
 SELECT  DISTINCT film_id
        ,title
 FROM inventory

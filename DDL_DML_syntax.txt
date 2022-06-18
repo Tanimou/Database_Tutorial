@@ -76,6 +76,20 @@ Postgresql Delete syntax to delete data records in the table:
 delete from table_name
 (where condition)
 
+Difference between Delete and Truncate:
+1:Delete command is used to delete specified rows while truncate commande 
+is used to delete all the rows from a table
+
+2:There may be a WHERE clause in delete statement in order to filter the records 
+while there may not be WHERE clause in TRUNCATE statement
+
+3:The delete statement removes rows one at the time and records an entry in the transaction log 
+for each deleted row while TRUNCATE removes data by deallocating the data pages used
+to store the table data and records only the deallocations in the transaction log
+
+4: Identity of the column retains the Identity after using delete statement
+while on the truncate statement Identity is reset to its seed value if the table contains 
+an identity column
 Postgresql insert syntax to insert data records in the table:
 
 Insert into table_name (column1, column2,...)

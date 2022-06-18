@@ -57,7 +57,7 @@ also pass parameters so that a stored procedure can act based on the passed para
 Postgresql allows you to extend the database functionnality with user-defined functions
 
 Used to created various type of functions like triggers or custom aggregate functions
-reduced network traffic
+reduced network traffic and lowers the memory requirements
 increase in security
 increase application performance
 but make it difficult to manage versions hard to debug
