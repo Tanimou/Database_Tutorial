@@ -75,6 +75,10 @@ Exemple:
 					where emp_id=empNum;
 				end if;
 			end
+
+In sql server:
+
+	create procedure update_sal(@empNum char(6), @rating smallint)
 We can call stored procedures from external applications or from dynamic sql statements
 Exemple: call update_sal('E001',1)
 
