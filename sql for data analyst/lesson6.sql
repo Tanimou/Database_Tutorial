@@ -183,7 +183,7 @@ SELECT  id
        ,rank() over(partition by account_id ORDER BY date_trunc('month',occurred_at)) AS row_num
 FROM orders;
 
-/*the dense_rank() function doesn't skip values after assigning several rows with the sme rank*/
+/*the dense_rank() function doesn't skip values after assigning several rows with the same rank*/
 
 SELECT  id
        ,account_id

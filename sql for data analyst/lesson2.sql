@@ -261,7 +261,7 @@ JOIN accounts a
 ON o.account_id = a.id
 WHERE occurred_at BETWEEN '2015-01-01' AND '2016-01-01'
 ORDER BY o.occurred_at desc ;
-dhfkshd vergsdfrgbgnd
+
  /*Recap 
  Primary AND Foreign Keys You learned a key element for JOINing tables IN a database has to do WITH primary
 AND foreign keys: primary keys - are unique for every row IN a table.These are generally the first column IN our database ( like you saw WITH the id column for every TABLE IN the Parch & Posey database ).
