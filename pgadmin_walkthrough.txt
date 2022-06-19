@@ -117,8 +117,9 @@ Exemple:
 					where emp_id=empNum;
 				end if;
 			end
+
 We can call stored procedures from external applications or from dynamic sql statements
-Exemple: call update_sal('E001',1)
+Exemple: call update_sal('E001',1)(Postgresql version)
 
 In sql server version:
 	CREATE PROCEDURE procedure_name as sql_statement
