@@ -7,15 +7,16 @@ objects are like functions views table  etc
 block of reusable sql code
 returns scalar value of a list of records
 return composite objects
-We can't use a function to do crud operations in database tables while stored procedure can
+We can't use a function to do CRUD operations in database tables while stored procedure can
 Stored procedures cannot be called within a SQL statements while function can be
+
 
 DIFFERENCE BETWEEN FUNCTIONS AND STORED PROCEDURE:
 
 1.The function must return a value but in SP(Stored procedure) it's optional
 2.Functions can only have inputs parameters whereas SP can have input or output params
 3.Functions can be called from a SP but SP can't be from a function
-4.Procedures allow SELECT as well as DML statement in it while function allows on ly select statement
+4.Procedures allow SELECT as well as DML statement in it while function allows only select statement
 5.Procedure cannot be used in a SELECT statement whereas function can be embedded in a SELECT statement
 6.SP can't be used in the sql statement anywhere inthe WHERE/HAVING/SELECT section while function can be
 7.An exception can be handled by a try-cach block in a SP while not in a function
@@ -32,14 +33,7 @@ CREATE FUNCTION [database_name].function_name(parameters)
 	RETURN value
 	end;
 
-EXAMPLE:
-	CREATE FUNCTION GetEmpFullName (@FirstName varchar(20),@LastName varchar(20))
-		returns varchar(41)
-		as
-		begin
-		return(select @FirstName+" "+@LastName)
-		end;
-
+EXAMPLE in sql server version:
 	CREATE FUNCTION GetEmpFullNamee(@AccountTypee varchar(50),@AccountDescriptione varchar(50))
 		returns varchar(101)
 		as
@@ -49,6 +43,28 @@ EXAMPLE:
 	
 	select dbo.GetEmpFullNamee(AccountType,AccountDescription) Full_Name ,[AccountCodeAlternateKey] from [DimAccount]
 order by AccountCodeAlternateKey
+
+	create function fnGetMultEmp()
+		returns Table
+		as
+		return(select * from DimProduct )
+
+select * from dbo.fnGetMultEmp()
+
+	create function fnGetMultEmp2()
+		returns @Emp Table 
+		(ProductKey int,
+		ProductAlternateKey nvarchar(25),
+		EnglishProductName nvarchar(50)
+		)
+		as 
+		begin
+		insert into @Emp select d.ProductKey,d.ProductAlternateKey,d.EnglishProductName from DimProduct d;
+		update @Emp set EnglishProductName='TanimouCisse' where ProductKey=1
+		return 
+		end
+
+select * from dbo.fnGetMultEmp2()
 
 to explore a function:
 right click on a function and go to properties
@@ -187,8 +203,8 @@ REFRESH MATERIALIZED VIEW CONCURRENTLY view_name
 
 						I.POSTGRESQL Triggers:
 
-It's a function invoked automatically whenever an event associated with a table occurs
-An event could be anything like an insert, an updaten a delete, a truncate
+It's a function invoked automatically whenever an event(database object, database and server events) associated with a table occurs
+An event could be anything like DML, DDL or logon events
 A trigger is a special user-defined function that binds a table
 You can specify wether the trigger is invoked before or after an event
 2 mains types of trigger: the row trigger and the statement trigger
@@ -202,17 +218,35 @@ How to create a trigger:
 2.bind this trigger function to a table using create trigger statement
 
 syntax of create function statement:
-A trigger function is similar to an ordinary function, except that it does not take any arguments
+A trigger function is similar to an ordinary function(a special stored procedure), except that it does not take any arguments
 and has a return value type trigger
 
-CREAE FUNCTION trigger_function() RETURN trigger AS query
+CREATE FUNCTION trigger_function() RETURN trigger AS query
 
 syntax of create trigger statement:
 
-CREATE TRIGGER rigger_name{BEFORE|AFTER|INSTEAD OF}{event[OR...]}
+CREATE TRIGGER trigger_name{BEFORE|AFTER|INSTEAD OF}{event[OR...]}
 ON table_name
 [FOR [EACH] {ROW|STATEMENT}]
 EXECUTE PROCEDURE trigger_function
+
+In sql server version:
+
+Create trigger [shcema_name].trigger_name
+	on table_name
+	after{[insert],[update],[delete]}
+	[not for replication]
+	as
+	{sql_statement}
+
+Example in sql server version:
+
+	create trigger AfterInsertTrigger
+		on TriggerDemo_Parent
+		after insert 
+		as
+		insert into TriggerDemo_History values((select top 1 ID from TriggerDemo_Parent),'insertion')
+		go;
 
 							J.Role Management
 
