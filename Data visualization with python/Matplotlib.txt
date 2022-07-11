@@ -29,3 +29,17 @@ which automates the process of defining a canvas and defining a figure artist in
 using the artist layer to generate a histogram of 10,000 random numbers would now look like. 
 So first we import the pyplot interface and you can see how all the methods associated with creating the histogram and other artist objects and manipulating them 
 whether it is the hist method or showing the figure are part of the pyplot interface.
+
+Area Plot:
+
+1. Also know as area chart or area graph
+2.Commonly used to represent cumulated totals using numbers or percentages over time
+3.based on line plot 
+
+Histogram plot:
+
+A histogram is a way of representing th frequency distribution of a variable
+
+Bart chart:
+
+Unlike a histogram, a bar chart is commonly used to compare the values of a variable

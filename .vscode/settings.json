@@ -11,5 +11,12 @@
       "password": "Candycove456"
     }
   ],
-  "jupyter.jupyterServerType": "local"
+  "jupyter.jupyterServerType": "local",
+  "explorer.fileNesting.patterns": {
+    "automate_import_csv_to_postgresql_database.ipynb": "*.${extname}",
+    "sql.txt": "*.${extname}",
+    "database_connection with_python.py": "*.${extname}",
+    "sql for data analyst/lesson1.sql": "${dirname}/*.${extname}"
+  },
+  "explorer.fileNesting.enabled": true
 }
