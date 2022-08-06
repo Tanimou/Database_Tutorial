@@ -1,3 +1,4 @@
+# %%
 # Import required libraries
 import dash
 import pandas as pd
@@ -5,6 +6,7 @@ import plotly.express as px
 from dash import dcc, html
 from dash.dependencies import Input, Output
 
+# %%
 # Read the airline data into pandas dataframe
 airline_data = pd.read_csv(
     "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DV0101EN-SkillsNetwork/Data%20Files/airline_data.csv",
@@ -17,9 +19,11 @@ airline_data = pd.read_csv(
     },
 )
 
+# %%
 # Create a dash application
 app = dash.Dash(__name__)
 
+# %%
 # Build dash app layout
 app.layout = html.Div(
     children=[
@@ -58,6 +62,7 @@ app.layout = html.Div(
     ]
 )
 
+# %%
 """ Compute_info function description
 
 This function takes in airline data and selected year as an input and performs computation for creating charts and plots.
@@ -72,6 +77,7 @@ Returns:
 """
 
 
+# %%
 def compute_info(airline_data, entered_year):
     # Select data
     df = airline_data[airline_data["Year"] == int(entered_year)]
@@ -96,6 +102,7 @@ def compute_info(airline_data, entered_year):
     return avg_car, avg_weather, avg_NAS, avg_sec, avg_late
 
 
+# %%
 # Callback decorator
 @app.callback(
     [
@@ -158,6 +165,7 @@ def get_graph(entered_year):
     return [carrier_fig, weather_fig, nas_fig, sec_fig, late_fig]
 
 
+# %%
 # Run the app
 if __name__ == "__main__":
     app.run_server()

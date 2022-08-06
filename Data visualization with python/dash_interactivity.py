@@ -1,3 +1,4 @@
+# %%
 # Import required libraries
 import dash
 import pandas as pd
@@ -5,6 +6,7 @@ import plotly.graph_objects as go
 from dash import dcc, html
 from dash.dependencies import Input, Output
 
+# %%
 # Read the airline data into pandas dataframe
 airline_data = pd.read_csv(
     "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DV0101EN-SkillsNetwork/Data%20Files/airline_data.csv",
@@ -17,9 +19,11 @@ airline_data = pd.read_csv(
     },
 )
 
+# %%
 # Create a dash application
 app = dash.Dash(__name__)
 
+# %%
 # Get the layout of the application and adjust it.
 # Create an outer division using html.Div and add title to the dashboard using html.H1 component
 # Add a html.Div and core input text component
@@ -55,12 +59,12 @@ app.layout = html.Div(
     ],
 )
 
+# %%
 # add callback decorator
 @app.callback(
     Output(component_id="line-plot", component_property="figure"),
     Input(component_id="input_year", component_property="value"),
 )
-
 # Add computation to callback function and return graph
 def get_graph(entered_year):
     # Select data based on the entered year
@@ -85,7 +89,7 @@ def get_graph(entered_year):
     )
     return fig
 
-
+# %%
 # Run the app
 if __name__ == "__main__":
     app.run_server()
