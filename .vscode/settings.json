@@ -18,5 +18,10 @@
     "database_connection with_python.py": "*.${extname}",
     "sql for data analyst/lesson1.sql": "${dirname}/*.${extname}"
   },
-  "explorer.fileNesting.enabled": true
+  "explorer.fileNesting.enabled": true,
+  "dvc.dvcPath": "dvc",
+  "workbench.editor.sharedViewState": true,
+  "projectManager.groupList": true,
+  "projects.defaultProjectSaveLocation": "C:\\Users\\tanim\\Programmation projects\\Tutorials",
+
 }
